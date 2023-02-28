@@ -1,4 +1,4 @@
-# Funficonalidades
+# Funciconalidades
 
 ## Conexoes
 
