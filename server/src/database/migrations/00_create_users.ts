@@ -1,14 +1,14 @@
-import Knex  from 'knex';
+import { Knex } from "knex";
 
 
 
 export async function up(knex: Knex){
     return knex.schema.createTable('users',table => {
         table.increments('id').primary();
-        table.increments('name').notNullable();
-        table.increments('avatar').notNullable();
-        table.increments('whatsapp').notNullable();
-        table.increments('bio').notNullable();
+        table.string('name').notNullable();
+        table.string('avatar').notNullable();
+        table.string('whatsapp').notNullable();
+        table.string('bio').notNullable();
     })
 }
 
