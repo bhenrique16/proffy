@@ -11,29 +11,38 @@ import Select from '../../../components/Select';
 
  function TeacherForm() {
 
-  const[name,setName]= useState('')
-  const[avatar,setaAvatar]= useState('')
-  const[whatsapp,setWhatsapp]= useState('')
-  const[bio,setBio]= useState('')
+  const [name, setName] = useState('');
+    const [avatar, setAvatar] = useState('');
+    const [whatsapp, setWhatsapp] = useState('');
+    const [bio, setBio] = useState('');
 
-  const[subject,setSubject]= useState('')
-  const[cost,setCost]= useState('')
+    const [subject, setSubject] = useState('');
+    const [cost, setCost] = useState('');
 
-  const [scheduleItems,setScheduleItems] = useState([
-    { week_day:0, from:'',to:''}
-  ])  
-  function addNewScheduleItem(){
+    const [scheduleItems, setScheduleItems] = useState([
+      { week_day: 0, from: '', to: '' }
+  ]);
+  function addNewScheduleItem() {
     setScheduleItems([
-      ...scheduleItems,
-      { week_day:0, from:'',to:''}
+        ...scheduleItems,
+        { week_day: 0, from: '', to: '' }
     ])
-      
-      
-  }
+}
+function setScheduluItemValue(position:number, field:string, value:string){
+  const updatedScheduleItems = scheduleItems.map((scheduleItem,index)=>{
+      if(index === position){
+        return {...scheduleItem,[field]:value}
+      }
+
+      return scheduleItem
+  })
+ setScheduleItems(updatedScheduleItems);
+  
+}
 
   function handleCreateClass(e: FormEvent){
     e.preventDefault()
-      console.log(name,avatar,whatsapp,bio,subject,cost);
+      console.log({name,avatar,whatsapp,bio,subject,cost,scheduleItems});
       
   }
   return (
@@ -47,7 +56,7 @@ import Select from '../../../components/Select';
       <fieldset>
         <legend>Seus dados</legend>
         <Input name="name" label="Nome Completo" value={name} onChange={(e)=>{setName(e.target.value)}} />
-        <Input name="avatar" label="Avatar"value={avatar} onChange={(e)=>{setaAvatar(e.target.value)}} />
+        <Input name="avatar" label="Avatar"value={avatar} onChange={(e)=>{setAvatar(e.target.value)}} />
         <Input name="whatsapp" label="WhatsApp" value={whatsapp} onChange={(e)=>{setWhatsapp(e.target.value)}}/>
         <Textarea name="bio" label="Biografia"value={bio} onChange={(e)=>{setBio(e.target.value)}}/>
       </fieldset>
@@ -74,12 +83,14 @@ import Select from '../../../components/Select';
        onChange={(e)=>{setCost(e.target.value)}}  />
       </fieldset>
       <fieldset><legend>Horários Disponíveis <button type="button" onClick={addNewScheduleItem}>+ Novo Horário</button></legend>
-      {scheduleItems.map(scheduleItem =>{
+      {scheduleItems.map((scheduleItem,index )=>{
         return(
           <div key={scheduleItem.week_day} className="schedule-item">
       <Select
        name="week_day" 
-       label="Dia da semana" 
+       label="Dia da semana"
+       value={scheduleItem.week_day} 
+       onChange={e=> setScheduluItemValue(index,'week_day',e.target.value)}
        options={[
         {value:'0', label:'Domingo'},
         {value:'1', label:'Segunda-Feira'},
@@ -90,8 +101,21 @@ import Select from '../../../components/Select';
         {value:'6', label:'Sábado'},
        ]}
        />
-       <Input name="from" label="Das" type="time"/>
-       <Input name="to" label="Até" type="time"/>
+       <Input 
+       name="from" 
+       label="Das"
+       type="time"
+       value={scheduleItem.from} 
+       onChange={e=> setScheduluItemValue(index,'from',e.target.value)}
+        />
+        
+       <Input 
+       name="to" 
+       label="Até" 
+       type="time"
+       onChange={e=> setScheduluItemValue(index,'to',e.target.value)}
+       value={scheduleItem.to} 
+       />
       </div>
         )
       })}

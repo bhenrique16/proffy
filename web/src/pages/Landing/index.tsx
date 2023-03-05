@@ -9,14 +9,15 @@ import './style.css'
 import api from '../../services/api'
  function Landing(){
 
-    const [totalConnections,setTotalConnections]=useState(0)
+    const [totalConnections, setTotalConnections] = useState(0);
 
-    useEffect(()=>{
-        api.get('connections').then(response =>{
-            const {total} = response.data
-            setTotalConnections(total)
+    useEffect(() => {
+        api.get('connections').then(res => {
+            const { total } = res.data;
+
+            setTotalConnections(total);
         })
-    },[])
+    }, []);
     return (
         <div id="page-landing">
             <div id="page-landing-content" className="container">
