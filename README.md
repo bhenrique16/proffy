@@ -8,8 +8,8 @@ A plataforma Proffy foi criada durante a Next Level Week #2 da Rocketseat com o 
 ✨ Tecnologias
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-Node.js
-TypeScript
-React
-React Native
-Expo
+Node.js  <br />
+TypeScript <br />
+React <br />
+React Native <br />
+Expo <br />
